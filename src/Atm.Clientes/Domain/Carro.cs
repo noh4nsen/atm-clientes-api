@@ -10,7 +10,7 @@ namespace Atm.Clientes.Domain
         public long Quilometragem { get; set; }
         public string Modelo { get; set; }
         public string Marca { get; set; }
-        public DateTime Ano { get; set; }
+        public short Ano { get; set; }
         public virtual ICollection<Cliente> Clientes { get; set; }
 
         public Carro()

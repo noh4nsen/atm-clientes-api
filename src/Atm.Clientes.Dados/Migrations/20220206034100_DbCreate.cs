@@ -17,7 +17,7 @@ namespace Atm.Clientes.Dados.Migrations
                     Quilometragem = table.Column<long>(type: "bigint", nullable: false),
                     Modelo = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true),
                     Marca = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
-                    Ano = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Ano = table.Column<short>(type: "smallint", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DataAtualizacao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
@@ -31,10 +31,10 @@ namespace Atm.Clientes.Dados.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Nome = table.Column<string>(type: "character varying(60)", maxLength: 60, nullable: false),
-                    Email = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: true),
+                    Nome = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
+                    Email = table.Column<string>(type: "character varying(60)", maxLength: 60, nullable: true),
                     Cpf = table.Column<string>(type: "text", nullable: true),
-                    Telefone = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    Telefone = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
                     Endereco = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     DataCadastro = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DataAtualizacao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)

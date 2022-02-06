@@ -12,16 +12,16 @@ namespace Atm.Clientes.Dados.Extensions.Tables
 
             modelBuilder.Entity<Cliente>()
                         .Property(c => c.Nome)
-                        .HasMaxLength(60)
+                        .HasMaxLength(150)
                         .IsRequired();
 
             modelBuilder.Entity<Cliente>()
                         .Property(c => c.Email)
-                        .HasMaxLength(30);
+                        .HasMaxLength(60);
 
             modelBuilder.Entity<Cliente>()
                         .Property(c => c.Telefone)
-                        .HasMaxLength(50);
+                        .HasMaxLength(20);
 
             modelBuilder.Entity<Cliente>()
                         .Property(c => c.Endereco)
