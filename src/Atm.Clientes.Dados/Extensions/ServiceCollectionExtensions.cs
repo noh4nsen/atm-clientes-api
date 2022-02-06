@@ -10,8 +10,8 @@ namespace Atm.Clientes.Dados.Extensions
     {
         internal static void SetupRepositories(this IServiceCollection services)
         {
-            //services.AddScoped(typeof(IRepository<Domain.Fornecedor>), typeof(Repository<Domain.Fornecedor>));
-            //services.AddScoped(typeof(IRepository<Produto>), typeof(Repository<Produto>));
+            services.AddScoped(typeof(IRepository<Carro>), typeof(Repository<Carro>));
+            services.AddScoped(typeof(IRepository<Cliente>), typeof(Repository<Cliente>));
         }
 
         internal static void SetupDbContext(this IServiceCollection services, string connectionString)

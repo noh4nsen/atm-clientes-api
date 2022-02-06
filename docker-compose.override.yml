@@ -11,5 +11,5 @@ services:
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
         ports:
-            - 5674:80
-            - 5675:443
+            - 5676:80
+            - 5677:443

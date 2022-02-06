@@ -7,7 +7,8 @@ namespace Atm.Clientes.Dados.Extensions.Facades
     {
         internal static void Setuptables(this ModelBuilder modelBuilder)
         {
-
+            modelBuilder.SetupCliente();
+            modelBuilder.SetupCarro();
         }
     }
 }
