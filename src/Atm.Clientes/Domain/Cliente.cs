@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Atm.Clientes.Domain
 {
@@ -11,6 +12,7 @@ namespace Atm.Clientes.Domain
         public string Endereco { get; set; }
 
         public virtual ICollection<Carro> Carros { get; set; }
+
         public Cliente()
         {
             Carros = new HashSet<Carro>();

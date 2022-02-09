@@ -40,10 +40,10 @@ namespace Atm.Clientes.Api.Features.Clientes.Commands
 
     public class InserirClienteCommandHandler : IRequestHandler<InserirClienteCommand, InserirClienteCommandResponse>
     {
-        private readonly IRepository<Domain.Cliente> _repositoryCliente;
+        private readonly IRepository<Cliente> _repositoryCliente;
         private readonly IRepository<Carro> _repositoryCarro;
 
-        public InserirClienteCommandHandler(IRepository<Domain.Cliente> repositoryCliente, IRepository<Carro> repositoryCarro)
+        public InserirClienteCommandHandler(IRepository<Cliente> repositoryCliente, IRepository<Carro> repositoryCarro)
         {
             _repositoryCliente = repositoryCliente;
             _repositoryCarro = repositoryCarro;
@@ -54,12 +54,11 @@ namespace Atm.Clientes.Api.Features.Clientes.Commands
             if (request is null)
                 throw new ArgumentNullException("Erro ao processar requisição");
 
-            Domain.Cliente cliente = await InsertClienteAsync(request.ToDomain());
-
-            throw new NotImplementedException();
+            Cliente entity = await InsertClienteAsync(request.ToDomain());
+            return entity.ToInsertResponse();
         }
 
-        private async Task<Domain.Cliente> InsertClienteAsync(Domain.Cliente cliente)
+        private async Task<Cliente> InsertClienteAsync(Cliente cliente)
         {
             await UpsertCarrosAsync(cliente.Carros);
             await _repositoryCliente.AddAsync(cliente);

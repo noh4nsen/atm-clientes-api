@@ -41,5 +41,30 @@ namespace Atm.Clientes.Api.Extensions.Entities
 
             return carros;
         }
+
+        public static InserirClienteCommandResponse ToInsertResponse(this Cliente entity)
+        {
+            return new InserirClienteCommandResponse()
+            {
+                Id = entity.Id,
+                DataCadastro = entity.DataCadastro
+            };
+        }
+
+        public static RemoverClienteCommandResponse ToRemoveResponse(this Cliente entity)
+        {
+            return new RemoverClienteCommandResponse()
+            {
+                Id = entity.Id
+            };
+        }
+
+        public static AtualizarClienteCommandResponse ToUpdateResponse(this Cliente entity)
+        {
+            return new AtualizarClienteCommandResponse()
+            {
+                DataAtualizacao = (DateTime) entity.DataAtualizacao
+            };
+        }
     }
 }
