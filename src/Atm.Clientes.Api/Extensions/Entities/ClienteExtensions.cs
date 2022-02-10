@@ -1,4 +1,5 @@
 ﻿using Atm.Clientes.Api.Features.Clientes.Commands;
+using Atm.Clientes.Api.Features.Clientes.Queries;
 using Atm.Clientes.Domain;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,21 @@ namespace Atm.Clientes.Api.Extensions.Entities
             {
                 Id = entity.Id,
                 DataCadastro = entity.DataCadastro
+            };
+        }
+
+        public static SelecionarClienteByIdQueryResponse ToQueryResponse(this Cliente entity)
+        {
+            return new SelecionarClienteByIdQueryResponse()
+            {
+                Id = entity.Id,
+                Nome = entity.Nome,
+                Email = entity.Email,
+                Cpf = entity.Cpf,
+                Telefone = entity.Telefone,
+                Endereco = entity.Endereco,
+                DataCadastro = entity.DataCadastro,
+                DataAtualizacao = entity.DataAtualizacao
             };
         }
 
