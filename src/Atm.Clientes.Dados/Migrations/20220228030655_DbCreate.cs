@@ -18,6 +18,7 @@ namespace Atm.Clientes.Dados.Migrations
                     Modelo = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true),
                     Marca = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
                     Ano = table.Column<short>(type: "smallint", nullable: false),
+                    Ativo = table.Column<bool>(type: "boolean", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DataAtualizacao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
@@ -36,6 +37,7 @@ namespace Atm.Clientes.Dados.Migrations
                     Cpf = table.Column<string>(type: "text", nullable: true),
                     Telefone = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
                     Endereco = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    Ativo = table.Column<bool>(type: "boolean", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DataAtualizacao = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },

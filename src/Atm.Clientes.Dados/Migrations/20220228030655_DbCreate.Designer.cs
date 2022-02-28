@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Atm.Clientes.Dados.Migrations
 {
     [DbContext(typeof(DbContext))]
-    [Migration("20220206034100_DbCreate")]
+    [Migration("20220228030655_DbCreate")]
     partial class DbCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,6 +29,9 @@ namespace Atm.Clientes.Dados.Migrations
 
                     b.Property<short>("Ano")
                         .HasColumnType("smallint");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("DataAtualizacao")
                         .HasColumnType("timestamp without time zone");
@@ -68,6 +71,9 @@ namespace Atm.Clientes.Dados.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Cpf")
                         .HasColumnType("text");

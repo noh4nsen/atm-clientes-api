@@ -28,6 +28,9 @@ namespace Atm.Clientes.Dados.Migrations
                     b.Property<short>("Ano")
                         .HasColumnType("smallint");
 
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("boolean");
+
                     b.Property<DateTime?>("DataAtualizacao")
                         .HasColumnType("timestamp without time zone");
 
@@ -66,6 +69,9 @@ namespace Atm.Clientes.Dados.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Cpf")
                         .HasColumnType("text");
