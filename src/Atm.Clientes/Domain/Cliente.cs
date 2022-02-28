@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Atm.Clientes.Domain
 {
@@ -10,7 +9,6 @@ namespace Atm.Clientes.Domain
         public string Cpf { get; set; }
         public string Telefone { get; set; }
         public string Endereco { get; set; }
-
         public virtual ICollection<Carro> Carros { get; set; }
 
         public Cliente()

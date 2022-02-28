@@ -1,19 +1,19 @@
-﻿using Atm.Clientes.Api.Features.Clientes.Commands;
-using Atm.Clientes.Api.Features.Clientes.Queries;
+﻿using Atm.Clientes.Api.Features.Carros.Commands;
+using Atm.Clientes.Api.Features.Carros.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
-namespace Atm.Clientes.Api.Features.Clientes
+namespace Atm.Clientes.Api.Features.Carros
 {
-    [Route("cliente")]
+    [Route("carro")]
     [ApiController]
-    public class ClienteController : ControllerBase
+    public class CarroController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public ClienteController(IMediator mediator)
+        public CarroController(IMediator mediator)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
@@ -21,24 +21,23 @@ namespace Atm.Clientes.Api.Features.Clientes
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(Guid id)
         {
-            return Ok(await _mediator.Send(new SelecionarClienteByIdQuery { Id = id }));
+            return Ok(await _mediator.Send(new SelecionarCarroByIdQuery { Id = id }));
         }
 
         [HttpGet]
-        public async Task<ActionResult> Get([FromQuery] SelecionarClienteFiltersQuery request)
+        public async Task<ActionResult> Get([FromQuery] SelecionarCarroFiltersQuery request)
         {
             return Ok(await _mediator.Send(request));
         }
 
-
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] InserirClienteCommand request)
+        public async Task<ActionResult> Post([FromBody] InserirCarroCommand request)
         {
             return Ok(await _mediator.Send(request));
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put([FromBody] AtualizarClienteCommand request)
+        public async Task<ActionResult> Put([FromBody] AtualizarCarroCommand request)
         {
             return Ok(await _mediator.Send(request));
         }
@@ -46,7 +45,7 @@ namespace Atm.Clientes.Api.Features.Clientes
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(Guid id)
         {
-            return Ok(await _mediator.Send(new RemoverClienteCommand { Id = id }));
+            return Ok(await _mediator.Send(new RemoverCarroCommand { Id = id }));
         }
     }
 }

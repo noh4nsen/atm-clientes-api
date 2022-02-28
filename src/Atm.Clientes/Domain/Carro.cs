@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Atm.Clientes.Domain
 {
@@ -11,7 +10,6 @@ namespace Atm.Clientes.Domain
         public string Modelo { get; set; }
         public string Marca { get; set; }
         public short Ano { get; set; }
-
         public virtual ICollection<Cliente> Clientes { get; set; }
 
         public Carro()

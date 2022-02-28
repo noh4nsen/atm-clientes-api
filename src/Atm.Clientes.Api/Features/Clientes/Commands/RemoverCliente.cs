@@ -39,17 +39,24 @@ namespace Atm.Clientes.Api.Features.Clientes.Commands
             if (request is null)
                 throw new ArgumentNullException("Erro ao processar requisição");
 
-            Cliente entity = await _repository.GetFirstAsync(c => c.Id.Equals(request.Id));
-            await _validator.ValidateDataAsync(request, entity);
-            await RemoverClienteAsync(entity);
+            Cliente entity = await GetClienteAsync(request);
+            await RemoveClienteAsync(entity);
 
             return entity.ToRemoveResponse();
         }
 
-        public async Task RemoverClienteAsync(Cliente entity)
+        private async Task<Cliente> GetClienteAsync(RemoverClienteCommand request)
         {
-            await Task.FromResult(_repository.RemoveAsync(entity)).Result;
-            await Task.FromResult(_repository.SaveChangesAsync()).Result;
+            Cliente entity = await _repository.GetFirstAsync(c => c.Id.Equals(request.Id));
+            await _validator.ValidateDataAsync(request, entity);
+            return entity;
+        }
+
+        private async Task RemoveClienteAsync(Cliente entity)
+        {
+            entity.Ativo = false;
+            await _repository.UpdateAsync(entity);
+            await _repository.SaveChangesAsync();
         }
     }
 
@@ -59,14 +66,14 @@ namespace Atm.Clientes.Api.Features.Clientes.Commands
         {
             RuleFor(c => c.Id)
                 .NotEqual(Guid.Empty)
-                .WithMessage("Id de fornecedor é obrigatório");
+                .WithMessage("Id de cliente é obrigatório");
         }
 
         public async Task ValidateDataAsync(RemoverClienteCommand request, Cliente entity)
         {
             RuleFor(r => r.Id)
                .Must(f => { return entity != null; })
-               .WithMessage($"Fornecedor de id {request.Id} não encontrado.");
+               .WithMessage($"Cliente de id {request.Id} não encontrado.");
             await this.ValidateAndThrowAsync(request);
         }
     }

@@ -1,4 +1,5 @@
-﻿using Atm.Clientes.Domain;
+﻿using Atm.Clientes.Api.Extensions.Entities;
+using Atm.Clientes.Domain;
 using Atm.Clientes.Repositories;
 using MediatR;
 using System;
@@ -27,13 +28,20 @@ namespace Atm.Clientes.Api.Features.Clientes.Queries
             _repository = repository;
         }
 
-        public Task<IEnumerable<SelecionarClienteByIdQueryResponse>> Handle(SelecionarClienteFiltersQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<SelecionarClienteByIdQueryResponse>> Handle(SelecionarClienteFiltersQuery request, CancellationToken cancellationToken)
         {
             if (request is null)
                 throw new ArgumentNullException("Erro ao processar requisição");
 
+            IEnumerable<Cliente> entities = await GetClientesAsync(request);
 
-            throw new System.NotImplementedException();
+            return entities.ToFiltersQueryResponse();
+        }
+
+        private async Task<IEnumerable<Cliente>> GetClientesAsync(SelecionarClienteFiltersQuery request)
+        {
+            IEnumerable<Cliente> clientes = await _repository.GetAsync(Predicate(request), c => c.Carros);
+            return clientes;
         }
 
         private Expression<Func<Cliente, bool>> Predicate(SelecionarClienteFiltersQuery request)
@@ -41,13 +49,13 @@ namespace Atm.Clientes.Api.Features.Clientes.Queries
             Expression<Func<Cliente, bool>> predicate = PredicateBuilder.True<Cliente>();
             
             if(!request.Nome.Equals(string.Empty))
-                predicate = predicate.And(c => c.Nome.Contains(request.Nome));
+                predicate = predicate.And(c => c.Nome.ToUpper().Contains(request.Nome.ToUpper()));
             if(!request.Email.Equals(string.Empty))
-                predicate = predicate.And(c => c.Email.Contains(request.Email));
+                predicate = predicate.And(c => c.Email.ToUpper().Contains(request.Email.ToUpper()));
             if(!request.Cpf.Equals(string.Empty))
-                predicate = predicate.And(c => c.Cpf.Contains(request.Cpf));
+                predicate = predicate.And(c => c.Cpf.ToUpper().Contains(request.Cpf.ToUpper()));
             if (!request.Telefone.Equals(string.Empty))
-                predicate = predicate.And(c => c.Telefone.Contains(request.Cpf));
+                predicate = predicate.And(c => c.Telefone.ToUpper().Contains(request.Cpf.ToUpper()));
 
             return predicate;            
         }

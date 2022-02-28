@@ -17,6 +17,7 @@ namespace Atm.Clientes.Api.Features.Clientes.Queries
     public class SelecionarClienteByIdQueryResponse
     {
         public Guid Id { get; set; }
+        public bool Ativo { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
         public string Cpf { get; set; }
@@ -65,14 +66,14 @@ namespace Atm.Clientes.Api.Features.Clientes.Queries
         {
             RuleFor(c => c.Id)
                 .NotEqual(Guid.Empty)
-                .WithMessage($"Id de cliente inválido");
+                .WithMessage("Id de cliente inválido");
         }
 
         public async Task ValidateDataAsync(SelecionarClienteByIdQuery request, Cliente entity, CancellationToken cancellationToken)
         {
             RuleFor(c => c.Id)
                 .Must(c => { return entity is not null; })
-                .WithMessage($"Fornecedor de id {request.Id} não encontrado.");
+                .WithMessage($"Cliente de id {request.Id} não encontrado.");
             await this.ValidateAndThrowAsync(request, cancellationToken);
         }
 

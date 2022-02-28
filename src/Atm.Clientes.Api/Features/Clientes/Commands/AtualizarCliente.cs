@@ -40,19 +40,21 @@ namespace Atm.Clientes.Api.Features.Clientes.Commands
             if (request is null)
                 throw new ArgumentNullException("Erro ao processar requisição");
 
-            Cliente entity = await UpdateClienteAsync(await GetClienteAsync(request));
+            Cliente entity = await GetClienteAsync(request);
+            await UpdateClienteAsync(request, entity);
             return entity.ToUpdateResponse();
         }
 
-        public async Task<Cliente> GetClienteAsync(AtualizarClienteCommand request)
+        private async Task<Cliente> GetClienteAsync(AtualizarClienteCommand request)
         {
             Cliente cliente = await _repository.GetFirstAsync(c => c.Id.Equals(request.Id));
             await _validator.ValidateDataAsync(request, cliente);
             return cliente;
         }
 
-        public async Task<Cliente> UpdateClienteAsync(Cliente cliente)
+        private async Task<Cliente> UpdateClienteAsync(AtualizarClienteCommand request ,Cliente cliente)
         {
+            request.Update(cliente);
             await _repository.UpdateAsync(cliente);
             await _repository.SaveChangesAsync();
             return cliente;

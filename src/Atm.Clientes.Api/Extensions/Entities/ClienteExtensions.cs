@@ -12,6 +12,7 @@ namespace Atm.Clientes.Api.Extensions.Entities
         {
             return new Cliente()
             {
+                Ativo = true,
                 Nome = request.Nome,
                 Email = request.Email,
                 Cpf = request.Cpf,
@@ -31,6 +32,7 @@ namespace Atm.Clientes.Api.Extensions.Entities
             {
                 carros.Add(new Carro
                 {
+                    Ativo = true,
                     Id = carro.IdCarro ?? Guid.Empty,
                     Placa = carro.Placa,
                     Descricao = carro.Descricao,
@@ -57,6 +59,7 @@ namespace Atm.Clientes.Api.Extensions.Entities
             return new SelecionarClienteByIdQueryResponse()
             {
                 Id = entity.Id,
+                Ativo = entity.Ativo,
                 Nome = entity.Nome,
                 Email = entity.Email,
                 Cpf = entity.Cpf,
@@ -81,6 +84,24 @@ namespace Atm.Clientes.Api.Extensions.Entities
             {
                 DataAtualizacao = (DateTime) entity.DataAtualizacao
             };
+        }
+
+        public static void Update(this AtualizarClienteCommand request, Cliente entity)
+        {
+            entity.Nome = request.Nome;
+            entity.Ativo = true;
+            entity.Email = request.Email;
+            entity.Cpf = request.Cpf;
+            entity.Telefone = request.Telefone;
+            entity.Endereco = request.Endereco;
+        }
+
+        public static IEnumerable<SelecionarClienteByIdQueryResponse> ToFiltersQueryResponse(this IEnumerable<Cliente> list)
+        {
+            IList<SelecionarClienteByIdQueryResponse> response = new List<SelecionarClienteByIdQueryResponse>();
+            foreach (Cliente entity in list)
+                response.Add(entity.ToQueryResponse());
+            return response;
         }
     }
 }
