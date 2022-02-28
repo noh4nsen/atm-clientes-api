@@ -38,7 +38,7 @@ namespace Atm.Clientes.Api.Features.Carros.Queries
 
         private async Task<IEnumerable<Carro>> GetCarrosAsync(SelecionarCarroFiltersQuery request)
         {
-            IEnumerable<Carro> carros = await _repository.GetAsync(Predicate(request));
+            IEnumerable<Carro> carros = await _repository.GetAsync(Predicate(request), c => c.Clientes);
             return carros;
         }
 

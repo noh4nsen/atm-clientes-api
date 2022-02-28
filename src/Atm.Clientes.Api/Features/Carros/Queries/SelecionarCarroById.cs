@@ -4,6 +4,7 @@ using Atm.Clientes.Repositories;
 using FluentValidation;
 using MediatR;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,6 +25,7 @@ namespace Atm.Clientes.Api.Features.Carros.Queries
         public string Modelo { get; set; }
         public string Marca { get; set; }
         public short Ano { get; set; }
+        public ICollection<Cliente> Clientes { get; set; }
     }
 
     public class SelecionarCarroByIdQueryHandler : IRequestHandler<SelecionarCarroByIdQuery, SelecionarCarroByIdQueryResponse>
@@ -49,7 +51,7 @@ namespace Atm.Clientes.Api.Features.Carros.Queries
 
         public async Task<Carro> GetCarroAsync(SelecionarCarroByIdQuery request)
         {
-            Carro entity = await _repository.GetFirstAsync(c => c.Id.Equals(request.Id));
+            Carro entity = await _repository.GetFirstAsync(c => c.Id.Equals(request.Id), c => c.Clientes);
             await _validator.ValidateDataAsync(request, entity);
             return entity;
         }

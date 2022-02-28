@@ -3,6 +3,7 @@ using Atm.Clientes.Api.Features.Clientes.Queries;
 using Atm.Clientes.Domain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Atm.Clientes.Api.Extensions.Entities
 {
@@ -56,6 +57,7 @@ namespace Atm.Clientes.Api.Extensions.Entities
 
         public static SelecionarClienteByIdQueryResponse ToQueryResponse(this Cliente entity)
         {
+            entity.Carros.ToList().ForEach(c => c.Clientes = null);
             return new SelecionarClienteByIdQueryResponse()
             {
                 Id = entity.Id,
@@ -66,7 +68,8 @@ namespace Atm.Clientes.Api.Extensions.Entities
                 Telefone = entity.Telefone,
                 Endereco = entity.Endereco,
                 DataCadastro = entity.DataCadastro,
-                DataAtualizacao = entity.DataAtualizacao
+                DataAtualizacao = entity.DataAtualizacao,
+                Carros = entity.Carros
             };
         }
 

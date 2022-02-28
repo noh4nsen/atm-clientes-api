@@ -3,6 +3,7 @@ using Atm.Clientes.Api.Features.Carros.Queries;
 using Atm.Clientes.Domain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Atm.Clientes.Api.Extensions.Entities
 {
@@ -62,6 +63,7 @@ namespace Atm.Clientes.Api.Extensions.Entities
 
         public static SelecionarCarroByIdQueryResponse ToQueryResponse(this Carro entity)
         {
+            entity.Clientes.ToList().ForEach(c => c.Carros = null);
             return new SelecionarCarroByIdQueryResponse()
             {
                 Id = entity.Id,
@@ -71,7 +73,8 @@ namespace Atm.Clientes.Api.Extensions.Entities
                 Quilometragem = entity.Quilometragem,
                 Modelo = entity.Modelo,
                 Marca = entity.Marca,
-                Ano = entity.Ano
+                Ano = entity.Ano,
+                Clientes = entity.Clientes
             };
         }
 

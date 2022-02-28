@@ -4,6 +4,7 @@ using Atm.Clientes.Repositories;
 using FluentValidation;
 using MediatR;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,6 +24,7 @@ namespace Atm.Clientes.Api.Features.Clientes.Queries
         public string Cpf { get; set; }
         public string Telefone { get; set; }
         public string Endereco { get; set; }
+        public ICollection<Carro> Carros { get; set; }
         public DateTime DataCadastro { get; set; }
         public DateTime? DataAtualizacao { get; set; }
     }
@@ -54,7 +56,7 @@ namespace Atm.Clientes.Api.Features.Clientes.Queries
 
         public async Task<Cliente> GetAsync(SelecionarClienteByIdQuery request, CancellationToken cancellationToken)
         {
-            Cliente entity = await _repository.GetFirstAsync(c => c.Id.Equals(request.Id));
+            Cliente entity = await _repository.GetFirstAsync(c => c.Id.Equals(request.Id), c => c.Carros);
             await _validator.ValidateDataAsync(request, entity, cancellationToken);
             return entity;
         }
