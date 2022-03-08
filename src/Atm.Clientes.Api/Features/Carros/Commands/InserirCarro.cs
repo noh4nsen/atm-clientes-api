@@ -13,10 +13,10 @@ namespace Atm.Clientes.Api.Features.Carros.Commands
     {
         public string Placa { get; set; }
         public string Descricao { get; set; }
-        public long Quilometragem { get; set; }
+        public long? Quilometragem { get; set; }
         public string Modelo { get; set; }
         public string Marca { get; set; }
-        public short Ano { get; set; }
+        public short? Ano { get; set; }
         public Guid ClienteId { get; set; }
     }
 

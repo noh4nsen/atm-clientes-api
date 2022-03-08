@@ -21,10 +21,10 @@ namespace Atm.Clientes.Api.Features.Carros.Queries
         public bool Ativo { get; set; }
         public string Placa { get; set; }
         public string Descricao { get; set; }
-        public long Quilometragem { get; set; }
+        public long? Quilometragem { get; set; }
         public string Modelo { get; set; }
         public string Marca { get; set; }
-        public short Ano { get; set; }
+        public short? Ano { get; set; }
         public ICollection<Cliente> Clientes { get; set; }
     }
 
