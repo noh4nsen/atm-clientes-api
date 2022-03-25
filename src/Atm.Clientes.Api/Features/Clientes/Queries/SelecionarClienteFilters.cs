@@ -17,6 +17,7 @@ namespace Atm.Clientes.Api.Features.Clientes.Queries
         public string Email { get; set; }
         public string Cpf { get; set; }
         public string Telefone { get; set; }
+        public bool? Ativo { get; set; }
     }
 
     public class SelecionarClienteFiltersQueryHandler : IRequestHandler<SelecionarClienteFiltersQuery, IEnumerable<SelecionarClienteByIdQueryResponse>>
@@ -54,8 +55,10 @@ namespace Atm.Clientes.Api.Features.Clientes.Queries
                 predicate = predicate.And(c => c.Email.ToUpper().Contains(request.Email.ToUpper()));
             if(!request.Cpf.Equals(string.Empty))
                 predicate = predicate.And(c => c.Cpf.ToUpper().Contains(request.Cpf.ToUpper()));
-            if (!request.Telefone.Equals(string.Empty))
+            if(!request.Telefone.Equals(string.Empty))
                 predicate = predicate.And(c => c.Telefone.ToUpper().Contains(request.Cpf.ToUpper()));
+            if (request.Ativo != null)
+                predicate = predicate.And(c => c.Ativo.Equals(request.Ativo));
 
             return predicate;            
         }

@@ -42,10 +42,10 @@ namespace Atm.Clientes.Api.Features.Carros
             return Ok(await _mediator.Send(request));
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(Guid id)
+        [HttpDelete("{id}/{clienteId}")]
+        public async Task<ActionResult> Delete(Guid id, Guid clienteId)
         {
-            return Ok(await _mediator.Send(new RemoverCarroCommand { Id = id }));
+            return Ok(await _mediator.Send(new RemoverCarroCommand { Id = id, ClienteId = clienteId }));
         }
     }
 }

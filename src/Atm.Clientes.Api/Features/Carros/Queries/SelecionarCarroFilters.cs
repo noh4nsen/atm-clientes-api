@@ -15,6 +15,7 @@ namespace Atm.Clientes.Api.Features.Carros.Queries
     {
         public string Placa { get; set; }
         public string Modelo { get; set; }
+        public bool? Ativo { get; set; }
     }
 
     public class SelecionarCarroFiltersQueryHandler : IRequestHandler<SelecionarCarroFiltersQuery, IEnumerable<SelecionarCarroByIdQueryResponse>>    
@@ -50,6 +51,8 @@ namespace Atm.Clientes.Api.Features.Carros.Queries
                 predicate = predicate.And(c => c.Placa.ToUpper().Contains(request.Placa.ToUpper()));
             if (!request.Modelo.Equals(string.Empty))
                 predicate = predicate.And(c => c.Modelo.ToUpper().Contains(request.Modelo.ToUpper()));
+            if (request.Ativo != null)
+                predicate = predicate.And(c => c.Ativo.Equals(request.Ativo));
             return predicate;
         }
     }
