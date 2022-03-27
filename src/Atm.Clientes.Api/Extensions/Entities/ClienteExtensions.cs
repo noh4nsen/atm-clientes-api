@@ -19,6 +19,7 @@ namespace Atm.Clientes.Api.Extensions.Entities
                 Cpf = request.Cpf,
                 Telefone = request.Telefone,
                 Endereco = request.Endereco,
+                Cep = request.Cep,
                 Carros = request.CarrosToDomain()
             };
         }
@@ -67,6 +68,7 @@ namespace Atm.Clientes.Api.Extensions.Entities
                 Cpf = entity.Cpf,
                 Telefone = entity.Telefone,
                 Endereco = entity.Endereco,
+                Cep = entity.Cep,
                 DataCadastro = entity.DataCadastro,
                 DataAtualizacao = entity.DataAtualizacao,
                 Carros = entity.Carros
@@ -97,6 +99,7 @@ namespace Atm.Clientes.Api.Extensions.Entities
             entity.Cpf = request.Cpf;
             entity.Telefone = request.Telefone;
             entity.Endereco = request.Endereco;
+            entity.Cep = request.Cep;
         }
 
         public static IEnumerable<SelecionarClienteByIdQueryResponse> ToFiltersQueryResponse(this IEnumerable<Cliente> list)

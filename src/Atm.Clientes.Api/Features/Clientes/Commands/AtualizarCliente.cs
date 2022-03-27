@@ -17,6 +17,7 @@ namespace Atm.Clientes.Api.Features.Clientes.Commands
         public string Cpf { get; set; }
         public string Telefone { get; set; }
         public string Endereco { get; set; }
+        public string Cep { get; set; }
     }
 
     public class AtualizarClienteCommandResponse
