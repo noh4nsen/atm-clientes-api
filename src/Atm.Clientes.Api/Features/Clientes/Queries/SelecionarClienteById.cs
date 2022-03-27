@@ -24,6 +24,7 @@ namespace Atm.Clientes.Api.Features.Clientes.Queries
         public string Cpf { get; set; }
         public string Telefone { get; set; }
         public string Endereco { get; set; }
+        public string Cep { get; set; }
         public ICollection<Carro> Carros { get; set; }
         public DateTime DataCadastro { get; set; }
         public DateTime? DataAtualizacao { get; set; }

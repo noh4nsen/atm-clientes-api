@@ -26,6 +26,10 @@ namespace Atm.Clientes.Dados.Extensions.Tables
             modelBuilder.Entity<Cliente>()
                         .Property(c => c.Endereco)
                         .HasMaxLength(200);
+
+            modelBuilder.Entity<Cliente>()
+                        .Property(c => c.Cep)
+                        .HasMaxLength(10);
         }
     }
 }

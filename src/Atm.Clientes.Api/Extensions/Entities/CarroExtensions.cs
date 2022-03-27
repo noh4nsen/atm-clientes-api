@@ -34,7 +34,7 @@ namespace Atm.Clientes.Api.Extensions.Entities
             };
         }
 
-        public static void Update(this AtualizarCarroCommand request, Carro entity)
+        public static void Update(this AtualizarCarroCommand request, Carro entity, Cliente cliente)
         {
             entity.Ativo = true;
             entity.Placa = request.Placa;
@@ -43,6 +43,15 @@ namespace Atm.Clientes.Api.Extensions.Entities
             entity.Modelo = request.Modelo;
             entity.Marca = request.Marca;
             entity.Ano = request.Ano;
+            entity.Clientes = entity.Clientes.ToClientesUpdate(cliente).ToList();
+        }
+
+        private static IEnumerable<Cliente> ToClientesUpdate(this IEnumerable<Cliente> clientes, Cliente cliente)
+        {
+            List<Cliente> lista = clientes.ToList();
+            if(!lista.Contains(cliente))
+                lista.Add(cliente);
+            return lista;
         }
 
         public static AtualizarCarroCommandResponse ToUpdateResponse(this Carro entity)
