@@ -25,7 +25,20 @@ namespace Atm.Clientes.Api.Features.Clientes.Queries
         public string Telefone { get; set; }
         public string Endereco { get; set; }
         public string Cep { get; set; }
-        public ICollection<Carro> Carros { get; set; }
+        public ICollection<SelecionarClienteCarroByIdQueryResponse> Carros { get; set; }
+        public DateTime DataCadastro { get; set; }
+        public DateTime? DataAtualizacao { get; set; }
+    }
+
+    public class SelecionarClienteCarroByIdQueryResponse
+    {
+        public Guid Id { get; set; }
+        public string Placa { get; set; }
+        public string Descricao { get; set; }
+        public long? Quilometragem { get; set; }
+        public string Modelo { get; set; }
+        public string Marca { get; set; }
+        public short? Ano { get; set; }
         public DateTime DataCadastro { get; set; }
         public DateTime? DataAtualizacao { get; set; }
     }

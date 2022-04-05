@@ -4,7 +4,6 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Atm.Clientes.Api.Validation
 {
-    [ExcludeFromCodeCoverage]
     public class FluentValidationResponse
     {
         public string Title { get; set; }
