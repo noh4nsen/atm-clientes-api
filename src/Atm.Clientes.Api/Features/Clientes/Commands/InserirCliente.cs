@@ -19,10 +19,10 @@ namespace Atm.Clientes.Api.Features.Clientes.Commands
         public string Endereco { get; set; }
         public string Cep { get; set; }
 
-        public ICollection<CarroDto> Carros { get; set; }
+        public ICollection<InserClienteCarroCommand> Carros { get; set; }
     }
 
-    public class CarroDto
+    public class InserClienteCarroCommand
     {
         public Guid? IdCarro { get; set; }
         public string Placa { get; set; }

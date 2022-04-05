@@ -83,7 +83,36 @@ namespace Atm.Clientes.Api.Extensions.Entities
                 Modelo = entity.Modelo,
                 Marca = entity.Marca,
                 Ano = entity.Ano,
-                Clientes = entity.Clientes
+                Clientes = entity.Clientes.ToQueryClienteResponse().ToList(),
+                DataCadastro = entity.DataCadastro,
+                DataAtualizacao = entity.DataAtualizacao
+            };
+        }
+
+        public static IEnumerable<SelecionarCarroClienteByIdQueryResponse> ToQueryClienteResponse(this IEnumerable<Cliente> list)
+        {
+            if (!list.Any())
+                return new List<SelecionarCarroClienteByIdQueryResponse>();
+
+            IList<SelecionarCarroClienteByIdQueryResponse> response = new List<SelecionarCarroClienteByIdQueryResponse>();
+            foreach(Cliente cliente in list)
+                response.Add(cliente.ToQueryClienteResponse());
+            return response;
+        }
+
+        public static SelecionarCarroClienteByIdQueryResponse ToQueryClienteResponse(this Cliente entity)
+        {
+            return new SelecionarCarroClienteByIdQueryResponse()
+            {
+                Id = entity.Id,
+                Nome = entity.Nome,
+                Email = entity.Email,
+                Cpf = entity.Cpf,
+                Telefone = entity.Telefone,
+                Endereco = entity.Endereco,
+                Cep = entity.Cep,
+                DataCadastro = entity.DataCadastro,
+                DataAtualizacao = entity.DataAtualizacao
             };
         }
 

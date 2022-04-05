@@ -30,7 +30,7 @@ namespace Atm.Clientes.Api.Extensions.Entities
                 return new List<Carro>();
 
             IList<Carro> carros = new List<Carro>();
-            foreach (CarroDto carro in request.Carros)
+            foreach (InserClienteCarroCommand carro in request.Carros)
             {
                 carros.Add(new Carro
                 {
@@ -71,7 +71,34 @@ namespace Atm.Clientes.Api.Extensions.Entities
                 Cep = entity.Cep,
                 DataCadastro = entity.DataCadastro,
                 DataAtualizacao = entity.DataAtualizacao,
-                Carros = entity.Carros
+                Carros = entity.Carros.ToQueryCarroResponse().ToList()
+            };
+        }
+
+        public static IEnumerable<SelecionarClienteCarroByIdQueryResponse> ToQueryCarroResponse(this IEnumerable<Carro> list)
+        {
+            if (!list.Any())
+                return new List<SelecionarClienteCarroByIdQueryResponse>();
+
+            IList<SelecionarClienteCarroByIdQueryResponse> response = new List<SelecionarClienteCarroByIdQueryResponse>();
+            foreach (Carro carro in list)
+                response.Add(carro.ToQueryCarroResponse());
+            return response;
+        }
+
+        public static SelecionarClienteCarroByIdQueryResponse ToQueryCarroResponse(this Carro entity)
+        {
+            return new SelecionarClienteCarroByIdQueryResponse()
+            {
+                Id = entity.Id,
+                Placa = entity.Placa,
+                Descricao = entity.Descricao,
+                Quilometragem = entity.Quilometragem,
+                Modelo = entity.Modelo,
+                Marca = entity.Marca,
+                Ano = entity.Ano,
+                DataCadastro = entity.DataCadastro,
+                DataAtualizacao = entity.DataAtualizacao
             };
         }
 
