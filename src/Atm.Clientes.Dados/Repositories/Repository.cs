@@ -67,7 +67,7 @@ namespace Atm.Clientes.Dados.Repositories
         public void SetInsertData(Entity entity)
         {
             entity.Id = Guid.NewGuid();
-            entity.DataCadastro = DateTime.Now;
+            entity.DataCadastro = GetLocalTime();
             entity.DataAtualizacao = null;
         }
 
@@ -79,8 +79,13 @@ namespace Atm.Clientes.Dados.Repositories
 
         private T SetUpdateData(T entity)
         {
-            entity.DataAtualizacao = DateTime.Now;
+            entity.DataAtualizacao = GetLocalTime();
             return entity;
+        }
+
+        private static DateTime GetLocalTime()
+        {
+            return TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("America/Sao_Paulo"));
         }
     }
 }
