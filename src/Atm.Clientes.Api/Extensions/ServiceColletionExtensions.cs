@@ -2,20 +2,21 @@
 using FluentValidation;
 using MediatR;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
-using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Text;
 using System.Text.Json.Serialization;
 
 namespace Atm.Clientes.Api.Extensions
 {
-    [ExcludeFromCodeCoverage]
     public static class ServiceColletionExtensions
     {
         public static void SetupFluentValidation(this IServiceCollection services, Assembly assembly)
@@ -53,6 +54,29 @@ namespace Atm.Clientes.Api.Extensions
                         Title = configuration.GetValue<string>("swagger:title"),
                         Version = configuration.GetValue<string>("swagger:version")
                     });
+                options.AddSecurityDefinition("Bearer",
+                    new OpenApiSecurityScheme
+                    {
+                        In = ParameterLocation.Header,
+                        Description = "Por favor insira o token JWT: Bearer <jwtToken>",
+                        Name = "Authorization",
+                        Type = SecuritySchemeType.ApiKey
+                    });
+                options.AddSecurityRequirement(
+                    new OpenApiSecurityRequirement
+                    {
+                        {
+                            new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                                }
+                            },
+                            new string[] { }
+                        }
+                    });
             });
         }
 
@@ -67,6 +91,28 @@ namespace Atm.Clientes.Api.Extensions
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
+            });
+        }
+
+        public static void SetupAuthentication(this IServiceCollection services)
+        {
+            var secret = Encoding.ASCII.GetBytes("d60QQTGeSeZ5UesRf9jH6oL3c8GS49L3U2p62sPCFlYt9LHvFZI8n1agMfyn");
+            services.AddAuthentication(authn =>
+            {
+                authn.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                authn.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(authn =>
+            {
+                authn.RequireHttpsMetadata = false;
+                authn.SaveToken = true;
+                authn.Audience = "Marvin";
+                authn.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = false,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(secret)
+                };
             });
         }
     }

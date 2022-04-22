@@ -16,6 +16,10 @@ namespace Atm.Clientes.Dados.Extensions.Tables
                         .IsRequired();
 
             modelBuilder.Entity<Cliente>()
+                        .Property(c => c.Cpf)
+                        .HasMaxLength(25);
+
+            modelBuilder.Entity<Cliente>()
                         .Property(c => c.Email)
                         .HasMaxLength(60);
 
