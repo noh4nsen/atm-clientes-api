@@ -2,21 +2,23 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace Atm.Clientes.Api.Extensions
 {
-    [ExcludeFromCodeCoverage]
     public static class ApplicationBuilderExtensions
     {
         public static void SetupEndpoints(this IApplicationBuilder applicationBuilder)
         {
             applicationBuilder.UseRouting();
             applicationBuilder.UseCors();
+            applicationBuilder.UseAuthentication();
+            applicationBuilder.UseAuthorization();
             applicationBuilder.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints
+                    .MapControllers()
+                    .RequireAuthorization();
                 endpoints.MapGet(
                     "/",
                     (context) =>

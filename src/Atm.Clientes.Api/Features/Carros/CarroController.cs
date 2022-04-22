@@ -33,7 +33,7 @@ namespace Atm.Clientes.Api.Features.Carros
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] InserirCarroCommand request)
         {
-            return Ok(await _mediator.Send(request));
+            return Created("/carro", await _mediator.Send(request));
         }
 
         [HttpPut]

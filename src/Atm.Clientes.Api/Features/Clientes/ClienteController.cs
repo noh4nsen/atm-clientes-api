@@ -34,7 +34,7 @@ namespace Atm.Clientes.Api.Features.Clientes
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] InserirClienteCommand request)
         {
-            return Ok(await _mediator.Send(request));
+            return Created("/cliente", await _mediator.Send(request));
         }
 
         [HttpPut]
