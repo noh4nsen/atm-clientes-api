@@ -39,6 +39,7 @@ namespace Atm.Clientes.Api.Extensions.Entities
                     Placa = carro.Placa,
                     Descricao = carro.Descricao,
                     Quilometragem = carro.Quilometragem,
+                    Marca = carro.Marca,
                     Modelo = carro.Modelo,
                     Ano = carro.Ano
                 });
