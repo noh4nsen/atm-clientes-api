@@ -98,6 +98,7 @@ namespace Atm.Clientes.Api.Extensions.Entities
                 Modelo = entity.Modelo,
                 Marca = entity.Marca,
                 Ano = entity.Ano,
+                Ativo = entity.Ativo,
                 DataCadastro = entity.DataCadastro,
                 DataAtualizacao = entity.DataAtualizacao
             };

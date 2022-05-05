@@ -33,6 +33,7 @@ namespace Atm.Clientes.Api.Features.Clientes.Queries
     public class SelecionarClienteCarroByIdQueryResponse
     {
         public Guid Id { get; set; }
+        public bool Ativo { get; set; }
         public string Placa { get; set; }
         public string Descricao { get; set; }
         public long? Quilometragem { get; set; }
