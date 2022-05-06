@@ -15,6 +15,7 @@ namespace Atm.Clientes.Api.Extensions.Entities
             clientes.Add(cliente);
             return new Carro()
             {
+                Ativo = true,
                 Placa = request.Placa,
                 Descricao = request.Descricao,
                 Quilometragem = request.Quilometragem,
